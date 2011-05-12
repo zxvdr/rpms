@@ -1,0 +1,6 @@
+rpms
+====
+
+SPEC files for scribe, thrift and fb303 were created by Silas [1].
+
+[1] https://github.com/silas/rpms

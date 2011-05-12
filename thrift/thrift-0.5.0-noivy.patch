@@ -1,0 +1,23 @@
+diff -up thrift-0.5.0/lib/java/build.xml.orig thrift-0.5.0/lib/java/build.xml
+--- thrift-0.5.0/lib/java/build.xml.orig	2010-11-02 21:15:32.440985392 -0400
++++ thrift-0.5.0/lib/java/build.xml	2010-11-02 21:16:38.132233927 -0400
+@@ -121,7 +121,18 @@
+     <ivy:cachepath pathid="ivy.test.classpath" conf="test" />
+   </target>
+ 
+-  <target name="compile" depends="init,resolve">
++  <target name="resolve-offline" depends="ivy-init-antlib" description="retrieve dependencies with ivy" if="noivy">
++    <path id="ivy.compile.classpath">
++      <fileset dir="${ivy.lib.dir}">
++        <include name="**/*.jar" />
++      </fileset>
++    </path>
++    <path id="ivy.test.classpath">
++    <!-- same as ivy.compile.classpath, but has to be defined -->
++    </path>
++  </target>
++
++  <target name="compile" depends="init,resolve,resolve-offline">
+     <javac srcdir="${src}" destdir="${build}" source="1.5" target="1.5" debug="true" classpathref="compile.classpath" />
+   </target>
+ 

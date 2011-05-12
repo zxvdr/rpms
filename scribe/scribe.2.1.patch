@@ -1,0 +1,26 @@
+diff -up scribe-2.1/configure.ac.orig scribe-2.1/configure.ac
+--- scribe-2.1/configure.ac.orig	2009-12-09 12:12:16.644609559 -0700
++++ scribe-2.1/configure.ac	2009-12-09 12:12:38.219546774 -0700
+@@ -58,8 +58,8 @@ FB_WITH_PATH([smc_home], [smcpath], [${E
+ FB_WITH_PATH([fb_home], [fbpath], [${EXTERNAL_PATH}/libfacebook])
+ FB_WITH_PATH([hadoop_home], [hadooppath], [/usr/local])
+ 
+-# Require boost 1.36 with system and filesytem libraries
+-AX_BOOST_BASE([1.36])
++# Require boost 1.33 with system and filesytem libraries
++AX_BOOST_BASE([1.33])
+ AX_BOOST_SYSTEM
+ AX_BOOST_FILESYSTEM
+ 
+diff -up scribe-2.1/src/file.cpp.orig scribe-2.1/src/file.cpp
+--- scribe-2.1/src/file.cpp.orig	2009-12-09 12:13:22.728487669 -0700
++++ scribe-2.1/src/file.cpp	2009-12-09 12:13:57.083546809 -0700
+@@ -200,7 +200,7 @@ void StdFile::listImpl(const std::string
+       boost::filesystem::directory_iterator dir_iter(path), end_iter;
+ 
+       for ( ; dir_iter != end_iter; ++dir_iter) {
+-        _return.push_back(dir_iter->filename());
++        _return.push_back(dir_iter->leaf());
+       }
+     }
+   } catch (std::exception const& e) {
