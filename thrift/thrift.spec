@@ -1,14 +1,7 @@
-%if 0%{?fedora} > 12
-%global with_csharp 0
-%global with_ghc 1
-%global with_java 1
-%global with_php 1
-%else
-%global with_csharp 0
 %global with_ghc 0
+%global with_csharp 0
+%global with_php 1
 %global with_java 0
-%global with_php 0
-%endif
 
 # Erlang
 %global erlangdir %{_libdir}/erlang
@@ -35,16 +28,15 @@
 %{!?ruby_sitearch: %global ruby_sitearch %(ruby -rrbconfig -e "puts Config::CONFIG['sitearchdir']")}
 
 Name:             thrift
-Version:          0.5.0
+Version:          0.6.0
 Release:          1%{?dist}
 Summary:          A multi-language RPC and serialization framework
 
 Group:            System Environment/Libraries
 License:          ASL 2.0
 URL:              http://incubator.apache.org/thrift
-Source0:          http://www.apache.org/dist//incubator/thrift/%{version}-incubating/thrift-%{version}.tar.gz
+Source0:          http://www.apache.org/dist/thrift/%{version}/thrift-%{version}.tar.gz
 Source1:          thrift_protocol.ini
-Patch0:           thrift-0.5.0-noivy.patch
 BuildRoot:        %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:    byacc
@@ -53,7 +45,6 @@ BuildRequires:    dos2unix
 BuildRequires:    flex
 BuildRequires:    libevent-devel
 BuildRequires:    libtool
-BuildRequires:    mono-devel >= 1.2.6
 BuildRequires:    zlib-devel
 
 %description
@@ -83,6 +74,7 @@ developing applications that use %{name}.
 %package csharp
 Summary:          C# bindings for %{name}
 Group:            Development/Libraries
+BuildRequires:    mono-devel >= 1.2.6
 # sparc64 doesn't have mono
 ExcludeArch:      sparc64
 
@@ -164,11 +156,16 @@ BuildRequires:    ant
 BuildRequires:    jakarta-commons-lang
 BuildRequires:    java-1.6.0-openjdk-devel
 BuildRequires:    slf4j
+%if (0%{?fedora} > 12 || 0%{?rhel} > 5)
+BuildRequires:    tomcat6-servlet-2.5-api
+Requires:         tomcat6-servlet-2.5-api
+%else
 BuildRequires:    tomcat5-servlet-2.4-api
+Requires:         tomcat5-servlet-2.4-api
+%endif
 Requires:         jakarta-commons-lang
 Requires:         java-1.6.0-openjdk
 Requires:         slf4j
-Requires:         tomcat5-servlet-2.4-api
 
 %description java
 Java bindings for %{name}.
@@ -233,7 +230,6 @@ Ruby bindings for %{name}.
 
 %prep
 %setup -q
-%patch0 -p1
 
 # Fix spurious-executable-perm warning
 find tutorial/ -type f -exec chmod 0644 {} \;
@@ -458,7 +454,7 @@ fi
 %defattr(-,root,root,-)
 %doc lib/py/README tutorial/py tutorial/*.thrift
 %{python_sitearch}/%{name}
-%if 0%{?fedora}  > 9
+%if (0%{?fedora} > 9 || 0%{?rhel} > 5)
 %{python_sitearch}/Thrift-*.egg-info
 %endif
 
@@ -469,6 +465,9 @@ fi
 %{ruby_sitelib}/thrift*
 
 %changelog
+* Fri May 13 2011 David Robinson <zxvdr.au@gmail.com> - 0.6.0-1
+- Update to 0.6.0
+
 * Tue Nov 02 2010 Silas Sewell <silas@sewell.ch> - 0.5.0-1
 - Update to 0.5.0
 

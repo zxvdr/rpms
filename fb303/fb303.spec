@@ -1,22 +1,17 @@
-%if 0%{?fedora} > 11
-%global with_java 1
-%global with_php 1
-%else
 %global with_java 0
-%global with_php 0
-%endif
+%global with_php 1
 
 %{!?python_sitelib: %define python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 
 Name:             fb303
-Version:          0.2.0
+Version:          0.6.0
 Release:          1%{?dist}
 Summary:          Facebook Bassline
 
 Group:            Development/Libraries
 License:          ASL 2.0
 URL:              http://incubator.apache.org/thrift
-Source0:          http://www.apache.org/dist/incubator/thrift/%{version}-incubating/thrift-%{version}-incubating.tar.gz
+Source0:          http://www.apache.org/dist/thrift/%{version}/thrift-%{version}.tar.gz
 BuildRoot:        %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:    automake
@@ -155,11 +150,14 @@ popd
 %doc README
 %{python_sitelib}/%{name}
 %{python_sitelib}/%{name}_scripts
-%if 0%{?fedora}  > 9
+%if (0%{?fedora} > 9 || 0%{?rhel} > 5)
 %{python_sitelib}/%{name}-*.egg-info
 %endif
 
 %changelog
+* Fri May 13 2011 David Robinson <zxvdr.au@gmail.com> - 0.6.0-1
+- Update to 0.6.0
+
 * Wed Mar 03 2010 Silas Sewell <silas@sewell.ch> - 0.2.0-1
 - Update to non-snapshot release
 

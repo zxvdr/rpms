@@ -14,9 +14,14 @@
 # Source function library
 . /etc/rc.d/init.d/functions
 
+prog="$(basename $0)"
+if [ "${prog:0:1}" = "S" -o "${prog:0:1}" = "K" ]; then
+    prog="${prog:3}"
+fi
+
 run="/usr/bin/scribed"
 run_ctrl="/usr/bin/scribe_ctrl"
-prog=$(basename $run)
+user="scribe"
 
 [ -e /etc/sysconfig/$prog ] && . /etc/sysconfig/$prog
 
@@ -26,10 +31,10 @@ lockfile=/var/lock/subsys/scribed
 
 start() {
     echo -n $"Starting $prog: "
-    daemon nohup $run -c $SCRIBED_CONFIG &> /dev/null &
+    daemon --user=$user nohup $run -c $SCRIBED_CONFIG >> /var/log/$prog 2>&1 &
     retval=$?
+    [ $retval -eq 0 ] && touch $lockfile && success || failure
     echo
-    [ $retval -eq 0 ] && touch $lockfile
     return $retval
 }
 
@@ -37,8 +42,8 @@ stop() {
     echo -n $"Stopping $prog: "
     $run_ctrl stop $port
     retval=$?
+    [ $retval -eq 0 ] && rm -f $lockfile && success || failure
     echo
-    [ $retval -eq 0 ] && rm -f $lockfile
     return $retval
 }
 
@@ -52,8 +57,12 @@ restart() {
 }
 
 reload() {
-    echo "Probably not implemented."
+    echo -n $"Reloading $prog: "
     $run_ctrl reload $port
+    retval=$?
+    [ $retval -eq 0 ] && success || failure
+    echo
+    return $retval
 }
 
 case "$1" in

@@ -1,0 +1,19 @@
+--- scribe/if/scribe.thrift.orig	2011-04-19 15:05:35.924462766 +1000
++++ scribe/if/scribe.thrift	2011-04-19 15:05:49.804467444 +1000
+@@ -1,4 +1,4 @@
+-#!/usr/local/bin/thrift --cpp --php
++#!/usr/bin/thrift --gen cpp:pure_enums --gen py --gen php
+ 
+ ##  Copyright (c) 2007-2008 Facebook
+ ##
+--- scribe/src/Makefile.am.orig	2011-04-19 15:05:57.012457913 +1000
++++ scribe/src/Makefile.am	2011-04-19 15:06:18.493469054 +1000
+@@ -108,7 +108,7 @@
+ # Set up Thrift specific activity here.
+ # We assume that a <name>+types.cpp will always be built from <name>.thrift.
+ 
+-$(eval $(call thrift_template,.,$(srcdir)/../if/scribe.thrift, -I $(fb303_home)/share/ --cpp --py --php))
++$(eval $(call thrift_template,.,$(srcdir)/../if/scribe.thrift, -I $(fb303_home)/share/ --gen cpp:pure_enums --gen py --gen php))
+ 
+ if FACEBOOK
+   $(eval $(call thrift_template,.,$(smc_home)/if/ServiceManager.thrift,--cpp))

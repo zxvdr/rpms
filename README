@@ -1,6 +1,11 @@
 rpms
 ====
 
-SPEC files for scribe, thrift and fb303 were created by Silas [1].
+SPEC files for scribe, thrift and fb303 were created by Silas [1]. This repo
+contains the following changes:
+
+- updated Thrift to 0.6.0
+- updated Scribe to 2.2
+- updated for RHEL 6
 
 [1] https://github.com/silas/rpms

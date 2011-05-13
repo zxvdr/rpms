@@ -1,0 +1,7 @@
+/var/log/scribed {
+   missingok
+   notifempty
+   copytruncate
+   rotate 4
+   size 1M
+}
