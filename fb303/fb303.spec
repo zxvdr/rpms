@@ -5,7 +5,7 @@
 
 Name:             fb303
 Version:          0.6.0
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Facebook Bassline
 
 Group:            Development/Libraries
@@ -155,6 +155,9 @@ popd
 %endif
 
 %changelog
+* Mon May 16 2011 David Robinson <zxvdr.au@gmail.com> - 0.6.0-2
+- fix THRIFT-925
+
 * Fri May 13 2011 David Robinson <zxvdr.au@gmail.com> - 0.6.0-1
 - Update to 0.6.0
 

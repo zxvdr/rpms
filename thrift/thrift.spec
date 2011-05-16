@@ -29,7 +29,7 @@
 
 Name:             thrift
 Version:          0.6.0
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          A multi-language RPC and serialization framework
 
 Group:            System Environment/Libraries
@@ -37,6 +37,8 @@ License:          ASL 2.0
 URL:              http://incubator.apache.org/thrift
 Source0:          http://www.apache.org/dist/thrift/%{version}/thrift-%{version}.tar.gz
 Source1:          thrift_protocol.ini
+# Patch below is from https://issues.apache.org/jira/browse/THRIFT-925
+Patch0:           0001-THRIFT-925.-cpp-Add-_VALUES_TO_NAMES-enum-map.patch
 BuildRoot:        %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:    byacc
@@ -230,6 +232,7 @@ Ruby bindings for %{name}.
 
 %prep
 %setup -q
+%patch0 -p1
 
 # Fix spurious-executable-perm warning
 find tutorial/ -type f -exec chmod 0644 {} \;
@@ -465,6 +468,9 @@ fi
 %{ruby_sitelib}/thrift*
 
 %changelog
+* Mon May 16 2011 David Robinson <zxvdr.au@gmail.com> - 0.6.0-2
+- fix THRIFT-925
+
 * Fri May 13 2011 David Robinson <zxvdr.au@gmail.com> - 0.6.0-1
 - Update to 0.6.0
 
