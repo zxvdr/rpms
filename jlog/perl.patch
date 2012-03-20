@@ -1,0 +1,20 @@
+diff --git a/jlog_change_endian.pl b/jlog_change_endian.pl
+index 790b920..afea4f0 100755
+--- a/jlog_change_endian.pl
++++ b/jlog_change_endian.pl
+@@ -1,4 +1,4 @@
+-#!/opt/msys/3rdParty/bin/perl
++#!/usr/bin/perl
+ use strict;
+ use warnings;
+ use Fcntl;
+diff --git a/jlog_sanity_check.pl b/jlog_sanity_check.pl
+index 4966f79..b39f626 100755
+--- a/jlog_sanity_check.pl
++++ b/jlog_sanity_check.pl
+@@ -1,4 +1,4 @@
+-#!/opt/msys/3rdParty/bin/perl
++#!/usr/bin/perl
+ use strict;
+ use warnings;
+ use Fcntl;

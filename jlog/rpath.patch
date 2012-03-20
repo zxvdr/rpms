@@ -1,0 +1,13 @@
+diff --git a/configure.in b/configure.in
+index 2fee0fa..8a042ef 100755
+--- a/configure.in
++++ b/configure.in
+@@ -205,7 +205,7 @@ case $host in
+     RLDFLAG="-R"
+     ;;
+   *)
+-    RLDFLAG="-Wl,--rpath="
++    RLDFLAG="-Wl"
+     ;;
+ esac
+ AC_SUBST(RLDFLAG)

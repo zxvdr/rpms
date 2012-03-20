@@ -1,5 +1,5 @@
-rpms
-====
+Scribe
+======
 
 SPEC files for scribe, thrift and fb303 were created by Silas [1]. This repo
 contains the following changes:
@@ -9,3 +9,8 @@ contains the following changes:
 - updated for RHEL 6
 
 [1] https://github.com/silas/rpms
+
+JLog
+====
+
+Fedora/CentOS/RHEL RPM for JLog.
