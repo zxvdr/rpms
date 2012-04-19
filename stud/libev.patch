@@ -1,0 +1,13 @@
+diff --git a/stud.c b/stud.c
+index 0ed6581..1d0e716 100644
+--- a/stud.c
++++ b/stud.c
+@@ -57,7 +57,7 @@
+ #include <openssl/ssl.h>
+ #include <openssl/err.h>
+ #include <openssl/engine.h>
+-#include <ev.h>
++#include <libev/ev.h>
+ 
+ #include "ringbuffer.h"
+ #include "shctx.h"

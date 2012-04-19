@@ -1,0 +1,10 @@
+[Unit]
+Description=Scalable TLS Unwrapping Daemon
+After=syslog.target network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/stud --config=/etc/stud/stud.conf
+
+[Install]
+WantedBy=multi-user.target
